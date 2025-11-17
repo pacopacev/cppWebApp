@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+    <application-settings>
+        <location>*</location>
+        <session-timeout>3600</session-timeout>
+        <max-request-size>131072</max-request-size>
+    </application-settings>
+    
+    <connector-fcgi>
+        <run-directory>.</run-directory>
+        <threads>10</threads>
+    </connector-fcgi>
+</server>
