@@ -1,141 +1,31 @@
-.container {
-    width: 660px;
-    margin: 50px auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #7be978;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    background-color: bisque
+}.title {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 2px;
 }
 
 .sub-container {
-
-    height: 50px;
-    
-}
-
-/* Add this to your HTML body or root element */
-body {
+    border: 2px solid black;
+    padding: 13px;
+    margin-top: 13px;
+    margin-bottom: 13px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.title {
-    color: #000000;
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 15px;
-    background-color: #ecf0f1;
-    border-radius: 8px;
-    /* border: 5px solid #5f1352; */
-}
-
-.form-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.form-table td {
-    padding: 10px;
-    vertical-align: top;
-}
-
-/* .form-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-} */
-
-.form-table td:first-child {
-    width: 150px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-
-
-input[type="text"], textarea, select {
-    width: 97%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-input[type="text"]:focus, textarea:focus, select:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-.button-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.btn {
-    padding: 10px 20px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.btn-primary {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #45a049;
-}
-
-.btn-secondary {
-    background-color: #f44336;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #da190b;
-}
-
-.results {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    border-left: 4px solid #4CAF50;
-}
-
-.success-message h3 {
-    color: #4CAF50;
-    margin-top: 0;
-}
-
-.results-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.results-table td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-}
-
-.results-table tr:last-child td {
-    border-bottom: none;
-}
-
-.error {
-    border: 2px solid #f44336 !important;
-    background-color: #ffebee;
-}
-
-.valid {
-    border: 2px solid #4CAF50 !important;
+    justify-content: center;
+    height: 50vh;
+    color:bisque
 }

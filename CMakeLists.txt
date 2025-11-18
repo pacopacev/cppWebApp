@@ -11,7 +11,7 @@ pkg_search_module(WT REQUIRED wt)
 pkg_search_module(BOOST REQUIRED boost_system)
 
 # Create executable
-add_executable(webapp main.cpp MemoryMonitor.cpp)
+add_executable(webapp main.cpp)
 
 # Link libraries
 target_link_libraries(webapp ${WTHTTP_LIBRARIES} ${WT_LIBRARIES} ${BOOST_LIBRARIES})
