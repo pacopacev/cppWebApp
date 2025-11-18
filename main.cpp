@@ -24,7 +24,7 @@ public:
 
         auto container = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
         container->setStyleClass("main");
-        auto title = container->addWidget(std::make_unique<Wt::WText>("<h1>Test Application</h1>"));
+        auto title = container->addWidget(std::make_unique<Wt::WText>("<h2'>Login to your account</h2>"));
         // std::string simple_text = "sdfdsfsd";
         // auto simple = container->addWidget(std::make_unique<Wt::WText>(simple_text));
         title->setStyleClass("title");
@@ -44,7 +44,8 @@ public:
 };
 
 std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env) {
-    return std::make_unique<LoginApplication>(env);
+    auto app = std::make_unique<LoginApplication>(env);
+    return app;
 }
 
 
