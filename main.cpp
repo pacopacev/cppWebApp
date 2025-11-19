@@ -19,12 +19,13 @@ public:
     LoginApplication(const Wt::WEnvironment& env)
         : Wt::WApplication(env)
     {
-        useStyleSheet("style/style.css");
+
+        useStyleSheet("/style/style.css");
         setTitle("Test Application");
 
         auto container = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
         container->setStyleClass("main");
-        auto title = container->addWidget(std::make_unique<Wt::WText>("<h2'>Login to your account</h2>"));
+        auto title = container->addWidget(std::make_unique<Wt::WText>("<h2>Login to your account</h2>"));
         // std::string simple_text = "sdfdsfsd";
         // auto simple = container->addWidget(std::make_unique<Wt::WText>(simple_text));
         title->setStyleClass("title");

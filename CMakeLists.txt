@@ -1,19 +1,23 @@
-cmake_minimum_required(VERSION 3.10)
-project(WebApp)
+cmake_minimum_required(VERSION 3.16)
+project(webapp)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find required packages
-find_package(PkgConfig)
+# Include directories
+include_directories("d:/vcpkg/installed/x64-windows/include")
 
-pkg_search_module(WTHTTP REQUIRED wthttp)
-pkg_search_module(WT REQUIRED wt)
-pkg_search_module(BOOST REQUIRED boost_system)
+# Link directories  
+link_directories("d:/vcpkg/installed/x64-windows/lib")
 
 # Create executable
 add_executable(webapp main.cpp)
 
-# Link libraries
-target_link_libraries(webapp ${WTHTTP_LIBRARIES} ${WT_LIBRARIES} ${BOOST_LIBRARIES})
-target_include_directories(webapp PRIVATE ${WTHTTP_INCLUDE_DIRS} ${WT_INCLUDE_DIRS})
-target_compile_options(webapp PRIVATE ${WTHTTP_CFLAGS_OTHER} ${WT_CFLAGS_OTHER})
+# Link with available libraries (no boost_system needed)
+target_link_libraries(webapp 
+    wt
+    wthttp
+    boost_filesystem-vc143-mt-x64-1_89
+    boost_date_time-vc143-mt-x64-1_89
+    boost_thread-vc143-mt-x64-1_89
+)
