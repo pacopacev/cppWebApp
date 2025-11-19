@@ -21,24 +21,29 @@ public:
     {
 
         useStyleSheet("/style/style.css");
-        setTitle("Test Application");
+        setTitle("Login Page");
 
         auto container = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+        auto title = container->addWidget(std::make_unique<Wt::WText>("<h2>LOGIN</h2>"));
+        auto sub_container = container->addWidget(std::make_unique<Wt::WContainerWidget>());
         container->setStyleClass("main");
-        auto title = container->addWidget(std::make_unique<Wt::WText>("<h2>Login to your account</h2>"));
+        
+
+        auto user_name = sub_container->addWidget(std::make_unique<Wt::WText>("<h3>Username</h3>"));
+        auto user_name_input = sub_container->addWidget(std::make_unique<Wt::WLineEdit>());
+        user_name_input->setWidth(300);
+        user_name_input->setHeight(50);
+        auto password = sub_container->addWidget(std::make_unique<Wt::WText>("<h3>Password</h3>"));
+        auto password_input = sub_container->addWidget(std::make_unique<Wt::WLineEdit>());
+        password_input->setWidth(300);
+        password_input->setHeight(50);
+        auto login = sub_container->addWidget(std::make_unique<Wt::WPushButton>("Login"));
         // std::string simple_text = "sdfdsfsd";
         // auto simple = container->addWidget(std::make_unique<Wt::WText>(simple_text));
         title->setStyleClass("title");
-        auto sub_container = container->addWidget(std::make_unique<Wt::WContainerWidget>());
-        sub_container->setStyleClass("sub-container");
-        auto player = sub_container->addWidget(std::make_unique<Wt::WAudio>());
-
         
-        player->addSource("https://moshhead-blackmetal.stream.laut.fm/moshhead-blackmetal");//https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3
-        player->setOptions(Wt::PlayerOption::Controls); // Show player controls
-        player->setAlternativeContent(std::make_unique<Wt::WText>("Your browser doesn't support audio."));  
-        player->setWidth("400px");
-        player->setHeight("50px");
+        sub_container->setStyleClass("sub-container");
+       
         
     }
     
