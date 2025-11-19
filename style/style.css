@@ -1,6 +1,7 @@
 :root {
 
     --white: #FFFFFF;
+    --black: #000000;
     /* Light & Airy */
     --sky-blue: #87CEEB;
     --powder-blue: #B0E0E6;
@@ -20,7 +21,7 @@ body {
     margin: 0;
     padding: 0;
 }
-.main {
+.login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,3 +54,26 @@ body {
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.login-button{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: var(--cadet-blue);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 340px;
+    margin-bottom: 2px;
+    color: var(--black);
+    cursor: pointer;}
+
+    .login-button:hover {
+        color: var(--white);
+    }
