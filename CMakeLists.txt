@@ -4,20 +4,26 @@ project(webapp)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Set vcpkg toolchain
+set(CMAKE_TOOLCHAIN_FILE "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+
+# Find PostgreSQL
+find_package(PostgreSQL REQUIRED)
+
 # Include directories
-include_directories("d:/vcpkg/installed/x64-windows/include")
+include_directories("D:/vcpkg/installed/x64-windows/include")
+include_directories(${PostgreSQL_INCLUDE_DIRS})
 
 # Link directories  
-link_directories("d:/vcpkg/installed/x64-windows/lib")
+link_directories("D:/vcpkg/installed/x64-windows/lib")
 
 # Create executable
-add_executable(webapp main.cpp)
+add_executable(webapp main.cpp DatabaseManager.cpp)
 
-# Link with available libraries (no boost_system needed)
+# Link libraries
 target_link_libraries(webapp 
     wt
     wthttp
-    boost_filesystem-vc143-mt-x64-1_89
-    boost_date_time-vc143-mt-x64-1_89
-    boost_thread-vc143-mt-x64-1_89
+    libpq
+    ws2_32
 )
