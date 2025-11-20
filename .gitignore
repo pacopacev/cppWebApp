@@ -24,16 +24,23 @@
 *.exe
 *.out
 *.app
+*.dll
+*.so
+*.a
+*.lib
+*.dylib
 
 # Build directories
-build/
+Build/
+out/
 bin/
+lib/
+build/
 obj/
 Debug/
 Release/
 x64/
 x86/
-out/
 *.user
 
 # CMake
@@ -42,7 +49,8 @@ CMakeFiles/
 cmake_install.cmake
 Makefile
 *.cmake
-!CMakeLists.txt
+# No exception for CMakeLists.txt - ignore it
+CMakeLists.txt
 
 # IDE files
 .vs/
@@ -51,6 +59,9 @@ Makefile
 *.swp
 *.swo
 *~
+*.vcxproj*
+*.sln
+CMakeSettings.json
 
 # Dependency directories
 deps/
@@ -99,3 +110,9 @@ logs/
 
 dev.sh
 dev.bat
+
+# Unix
+*.o
+*.out
+build.bat
+build.ps1

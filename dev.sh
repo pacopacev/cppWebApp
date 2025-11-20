@@ -1,23 +1,33 @@
 #!/bin/bash
-cd /var/www/webapp
-port=8082
+cd /var/www/cppWebApp
+port=8081
+
 echo "🛑 Stopping any running instance..."
 pkill -f "webapp --docroot" || true
 
-echo "🔨 Rebuilding..."
-g++ -std=c++17 -pthread -o webapp main.cpp \
-    -I/usr/local/include \
-    -L/usr/local/lib \
-    -lwthttp -lwt -lboost_system
+echo "🔨 Building with CMake..."
+# Create build directory if it doesn't exist
+mkdir -p build
+cd build
+
+# Configure with CMake (only if needed)
+if [ ! -f "Makefile" ]; then
+    cmake ..
+fi
+
+# Build
+make -j4
 
 if [ ! -f "webapp" ]; then
     echo "❌ Build failed!"
     exit 1
 fi
-chmod +x webapp
+
+cd ..
+chmod +x build/webapp
 
 echo "🚀 Starting server..."
-echo "📱 Access at: http://localhost:8{$port}"
+echo "📱 Access at: http://localhost:${port}"
 echo "⏹️  Press Ctrl+C to stop"
 
-./webapp --docroot . --http-address 0.0.0.0 --http-port $port
+build/webapp --docroot . --http-address 0.0.0.0 --http-port $port

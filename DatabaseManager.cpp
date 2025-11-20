@@ -6,7 +6,13 @@
 //     // Update with your PostgreSQL credentials
 //     // connection_string_ = "host=pa-pgdimitrov-bfdb.j.aivencloud.com port=25464 dbname=defaultdb user=avnadmin password=AVNS_IONeg4MWBUESkCApRE9";
 // }
-
+DatabaseManager::DatabaseManager() : connection_(nullptr) {
+#ifdef _WIN32
+    std::cout << "Running on Windows" << std::endl;
+#elif __linux__
+    std::cout << "Running on Linux" << std::endl;
+#endif
+}
 DatabaseManager::~DatabaseManager() {
     if (connection_) {
         PQfinish(connection_);

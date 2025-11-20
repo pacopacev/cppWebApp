@@ -15,6 +15,7 @@
 #include <Wt/WVBoxLayout.h>
 #include <Wt/WHBoxLayout.h>
 #include <Wt/WString.h>
+#include <Wt/WPasswordEdit.h>
 
     
 
@@ -23,10 +24,11 @@ class LoginApplication : public Wt::WApplication {
 
 private:
     Wt::WLineEdit* usernameEdit_;
-    Wt::WLineEdit* passwordEdit_;
+    // Wt::WLineEdit* passwordEdit_;
     Wt::WText* errorMessage_;
     Wt::WText* version_; 
     DatabaseManager dbManager_;
+    Wt::WPasswordEdit *passwordEdit_;
 
 public:
     LoginApplication(const Wt::WEnvironment& env)
@@ -72,7 +74,7 @@ public:
 // Password row - add another horizontal layout
         auto* passLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
         auto passwordLabel = passLayout->addWidget(std::make_unique<Wt::WLabel>("Password:"));
-        passwordEdit_ = passLayout->addWidget(std::make_unique<Wt::WLineEdit>());
+        passwordEdit_ = passLayout->addWidget(std::make_unique<Wt::WPasswordEdit>());
 
         auto* buttonLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
         auto loginButton = buttonLayout->addWidget(std::make_unique<Wt::WPushButton>("Login"));
@@ -106,7 +108,7 @@ public:
         usernameLabel->setBuddy(usernameEdit_); 
 
         
-        passwordEdit_->setEchoMode(Wt::EchoMode::Password);
+    
         passwordEdit_->setPlaceholderText("Enter your password");
         passwordEdit_->setStyleClass("input-field");
         passwordEdit_->setWidth(300);
@@ -126,7 +128,7 @@ public:
     auto* footerLayout = footer_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
 
 // Add version text to the footer layout
-    version_ = footerLayout->addWidget(std::make_unique<Wt::WText>("Version 0.0.1"));
+    version_ = footerLayout->addWidget(std::make_unique<Wt::WText>("Version 0.0.1 - Flowbit Cpyright 2025"));
     }
 
 private:
