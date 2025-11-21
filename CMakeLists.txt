@@ -42,7 +42,7 @@ else()
 endif()
 
 # Create executable
-add_executable(webapp main.cpp DatabaseManager.cpp)
+add_executable(webapp main.cpp DatabaseManager.cpp Utils.cpp)
 
 # Link libraries
 target_link_libraries(webapp ${PostgreSQL_LIBRARIES})

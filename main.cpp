@@ -17,6 +17,11 @@
 #include <Wt/WString.h>
 #include <Wt/WPasswordEdit.h>
 
+#include <Wt/WGridLayout.h>
+
+#include "Utils.h" 
+
+
     
 
 
@@ -26,9 +31,12 @@ private:
     Wt::WLineEdit* usernameEdit_;
     // Wt::WLineEdit* passwordEdit_;
     Wt::WText* errorMessage_;
-    Wt::WText* version_; 
+    Wt::WText* version_;
+    Wt::WContainerWidget* error_container_;
     DatabaseManager dbManager_;
     Wt::WPasswordEdit *passwordEdit_;
+    Wt::WLabel* db_status_label_;
+
 
 public:
     LoginApplication(const Wt::WEnvironment& env)
@@ -50,17 +58,47 @@ public:
         auto* main_container = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
         main_container->setStyleClass("main-container");
 
+        std::string currentDate = Utils::getCurrentDate();
+        std::string currentDateTime = Utils::getCurrentDateTime();
+        std::string version = Utils::getVersion();
         
-
-        // auto* title = main_container->addWidget(std::make_unique<Wt::WText>("<h3>LOGIN</h3>"));
-        // title->setStyleClass("login-title");
 
 
         auto* form_container = main_container->addWidget(std::make_unique<Wt::WContainerWidget>());
         form_container->setStyleClass("form-container");  
-
+        // Form layout
         auto* formLayout = form_container->setLayout(std::make_unique<Wt::WVBoxLayout>());
-        
+
+
+
+        auto center_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+        center_container->setStyleClass("center-container");
+
+// Create your horizontal layout inside the centered container
+        auto db_status_content = center_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
+        db_status_content->addWidget(std::make_unique<Wt::WText>("DATABASE STATUS: "));
+        db_status_content->addWidget(std::make_unique<Wt::WText>("🟢"));
+    
+
+        // auto db_status_container = db_status_content->addWidget(std::make_unique<Wt::WContainerWidget>());
+        // auto db_status_layout = db_status_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
+
+        // db_status_label_ = db_status_layout->addWidget(std::make_unique<Wt::WLabel>("DATABASE STATUS"));
+        // db_status_label_->setStyleClass("db-status-label");
+
+// // Create the label first, then add it to grid
+//         auto status_label = std::make_unique<Wt::WLabel>("DATABASE STATUS");
+//         auto db_status_text_ = status_label.get(); // Store the pointer
+//         grid->addWidget(std::move(status_label), 0, 0);
+
+// // Add other widgets
+//         grid->addWidget(std::make_unique<Wt::WText>("PostgreSQL 14"), 0, 1);
+//         grid->addWidget(std::make_unique<Wt::WText>("🟢"), 1, 0);
+//         grid->addWidget(std::make_unique<Wt::WText>("Connection stable"), 1, 1);
+
+
+
+        // Logo
         auto* logo_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
         logo_container->setStyleClass("logo-container");
         auto* logo = logo_container->addWidget(std::make_unique<Wt::WImage>("resources/img/flowbit.png"));
@@ -80,6 +118,10 @@ public:
         auto loginButton = buttonLayout->addWidget(std::make_unique<Wt::WPushButton>("Login"));
         loginButton->setStyleClass("login-button");
         loginButton->clicked().connect(this, &LoginApplication::handleLogin);
+
+        
+
+
 
 
 
@@ -115,12 +157,15 @@ public:
         passwordEdit_->setHeight(34);
         passwordLabel->setBuddy(passwordEdit_); 
 
-        auto* error_container = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
-        errorMessage_ = error_container->addWidget(std::make_unique<Wt::WText>());
-        errorMessage_->setStyleClass("error-message");
-        errorMessage_->hide();
 
-        // Create footer container
+        error_container_ = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+         
+
+        errorMessage_ = error_container_->addWidget(std::make_unique<Wt::WText>());
+        // errorMessage_->hide();
+
+        // Create footer containery
+        
     auto* footer_container = main_container->addWidget(std::make_unique<Wt::WContainerWidget>());
     footer_container->setStyleClass("footer");
 
@@ -128,7 +173,7 @@ public:
     auto* footerLayout = footer_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
 
 // Add version text to the footer layout
-    version_ = footerLayout->addWidget(std::make_unique<Wt::WText>("Version 0.0.1 - Flowbit Cpyright 2025"));
+    version_ = footerLayout->addWidget(std::make_unique<Wt::WText>(version +  " Flowbit Build: " + currentDate));
     }
 
 private:
@@ -164,6 +209,7 @@ private:
     }
     void showError(const std::string& message) {
         errorMessage_->setText(message);
+        error_container_->setStyleClass("error_container");
         errorMessage_->setStyleClass("error-message");
         errorMessage_->show();
     }

@@ -15,6 +15,9 @@
     /* Deep Blues */
     --steel-blue: #4682B4;
     --air-force: #5D8AA8;
+    --flowbit-blue: #0B538D
+
+
 }
 
 body {
@@ -35,6 +38,8 @@ body {
 }
 
 .form-container {
+    width: 400px;
+    height: 500px;
     /* border: 2px solid black; */
     padding: 20px;
 
@@ -55,7 +60,7 @@ body {
     padding-right: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: var(--cadet-blue);
+    background-color: var(--flowbit-blue);
     border: none;
     border-radius: 3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -63,10 +68,10 @@ body {
     font-style: normal;
     font-weight: bold;
     text-align: center;
-    margin-top: 50px;
-    margin-bottom: 340px;
+    margin-top: 21px;
+    margin-bottom: 54px;
     margin-bottom: 2px;
-    color: var(--black);
+    color: var(--white);
     cursor: pointer;}
 
     .login-button:hover {
@@ -104,22 +109,15 @@ body {
     margin-top: 10px;
 }
 
-    .error_container{
-        border-color: #000000;
-        background-color: #000000;
-
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding-bottom: 50px;
-        min-height: 54px;
-        
-        align-items: center;
-        justify-content: center;
-        /* height: 50vh; */
-        background: var(--white);
-        border-radius: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
+ .error_container {
+    /* border: 2px solid red; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 54px;
+    display: flex; /* Added this crucial line */
+    align-items: center;
+    justify-content: center;
+}
     .footer{
         position: fixed;
         left: 0;
@@ -128,6 +126,13 @@ body {
         background-color: #333;
         color: white;
         text-align: center;
+        border-bottom: 2px solid var(--flowbit-blue);
     }
        
-    
+    .center-container {
+    display: flex;
+    justify-content: center;    /* Horizontal center */
+    align-items: center;        /* Vertical center */
+    min-height: 34px;          /* Give it some height to see vertical centering */
+    border: 1px solid #ccc;     /* Optional: visual reference */
+}
