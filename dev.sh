@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /var/www/cppWebApp
-port=8081
+port=8085
 
 echo "🛑 Stopping any running instance..."
 pkill -f "webapp --docroot" || true
@@ -10,10 +10,12 @@ echo "🔨 Building with CMake..."
 mkdir -p build
 cd build
 
-# Configure with CMake (only if needed)
-if [ ! -f "Makefile" ]; then
-    cmake ..
-fi
+# Always clean the CMake cache when switching between systems
+echo "🧹 Cleaning CMake cache..."
+rm -f CMakeCache.txt
+
+# Configure with CMake
+cmake ..
 
 # Build
 make -j4

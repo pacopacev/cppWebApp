@@ -23,10 +23,10 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
 }
 .main-container {
-    /* border: 2px solid black; */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -35,10 +35,11 @@ body {
     height: 100vh;
     background-color: lightgray;
     margin-top: 0px;
+    overflow: hidden;
 }
 
 .form-container {
-    width: 400px;
+    width: 300;
     height: 500px;
     /* border: 2px solid black; */
     padding: 20px;
@@ -50,26 +51,26 @@ body {
     align-items: center;
     justify-content: center;
     /* height: 50vh; */
-    background: var(--white);
+    background: lightgray;;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .login-button{
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
     background-color: var(--flowbit-blue);
     border: none;
     border-radius: 3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    font-size: 20px;
+    font-size: 13px;
     font-style: normal;
     font-weight: bold;
     text-align: center;
-    margin-top: 21px;
-    margin-bottom: 54px;
+    margin-top: 13px;
+    margin-bottom: 13px;
     margin-bottom: 2px;
     color: var(--white);
     cursor: pointer;}
@@ -92,8 +93,11 @@ body {
     }
 
    .logo-image {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 13px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
    }
 
 
@@ -117,6 +121,7 @@ body {
     display: flex; /* Added this crucial line */
     align-items: center;
     justify-content: center;
+    min-height: 34px; 
 }
     .footer{
         position: fixed;
@@ -134,5 +139,38 @@ body {
     justify-content: center;    /* Horizontal center */
     align-items: center;        /* Vertical center */
     min-height: 34px;          /* Give it some height to see vertical centering */
-    border: 1px solid #ccc;     /* Optional: visual reference */
+    /* border: 1px solid #ccc;    */
+}
+.version-text{
+    color: var(--white);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.welcome-text {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.button-row {
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
 }

@@ -50,7 +50,7 @@ cmake_install.cmake
 Makefile
 *.cmake
 # No exception for CMakeLists.txt - ignore it
-# CMakeLists.txt
+CMakeLists.txt
 
 # IDE files
 .vs/
