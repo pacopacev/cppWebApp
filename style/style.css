@@ -35,13 +35,12 @@ body {
 }
 
 .form-container {
-    align-items: center;
-    justify-content: center;
     background: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    min-width: 400px;
+    width: 100%;
+    max-width: 400px; /* Or whatever max width you prefer */
 }
 
 /* Input field styles */
@@ -50,7 +49,8 @@ body {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
-    margin-left: 10px;
+    width: 100%;  /* Fill all available width */
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .input-field:focus {
@@ -69,6 +69,8 @@ body {
     font-size: 16px;
     cursor: pointer;
     margin-top: 15px;
+    margin-left: 66px;
+    margin-right: 66px;
 }
 
 .login-button:hover {

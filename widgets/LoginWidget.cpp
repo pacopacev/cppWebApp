@@ -11,8 +11,17 @@ LoginWidget::LoginWidget() {
     auto* main_container = this->addWidget(std::make_unique<Wt::WContainerWidget>());
     main_container->setStyleClass("main-container");
 
-    // Create center container inside main container
-    auto* center_container = main_container->addWidget(std::make_unique<Wt::WContainerWidget>());
+   
+
+    
+
+    // Form container
+    auto* form_container = main_container->addWidget(std::make_unique<Wt::WContainerWidget>());
+    form_container->setStyleClass("form-container");
+    auto formLayout = form_container->setLayout(std::make_unique<Wt::WVBoxLayout>());
+
+     // Create center container inside main container
+    auto* center_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
     center_container->setStyleClass("center-container");
 
     // Database status row
@@ -24,13 +33,7 @@ LoginWidget::LoginWidget() {
     auto statusIndicator = db_status_content->addWidget(std::make_unique<Wt::WText>(statusText));
     statusIndicator->setStyleClass(dbManager_.isConnected() ? "db-connected" : "db-disconnected");
 
-    
-
-    // Form container
-    auto* form_container = main_container->addWidget(std::make_unique<Wt::WContainerWidget>());
-    form_container->setStyleClass("form-container");
-    auto formLayout = form_container->setLayout(std::make_unique<Wt::WVBoxLayout>());
-
+    // Logo
     auto logo_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
     logo_container->setStyleClass("logo-container");
     auto logo = logo_container->addWidget(std::make_unique<Wt::WImage>("resources/img/flowbit.png"));
@@ -44,6 +47,8 @@ LoginWidget::LoginWidget() {
     usernameEdit_->setStyleClass("input-field");
     usernameLabel->setBuddy(usernameEdit_);
 
+    userLayout->setStretchFactor(usernameEdit_, 1);
+
     // Password row
     auto* passLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
     auto passwordLabel = passLayout->addWidget(std::make_unique<Wt::WLabel>("Password:"));
@@ -51,6 +56,8 @@ LoginWidget::LoginWidget() {
     passwordEdit_->setPlaceholderText("Enter your password");
     passwordEdit_->setStyleClass("input-field");
     passwordLabel->setBuddy(passwordEdit_);
+
+    passLayout->setStretchFactor(passwordEdit_, 1);
 
     // Button row
     auto* buttonLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
