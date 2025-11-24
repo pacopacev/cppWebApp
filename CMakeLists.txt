@@ -41,8 +41,25 @@ else()
     link_directories(${PG_LIB_DIR})
 endif()
 
-# Create executable
-add_executable(webapp main.cpp DatabaseManager.cpp Utils.cpp)
+# Add subdirectories for better organization
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/routes
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets
+)
+
+# List all source files with their correct paths
+set(SOURCES
+    main.cpp
+    DatabaseManager.cpp
+    Utils.cpp
+    routes/RouteManager.cpp
+    widgets/DashboardWidget.cpp
+    widgets/LoginWidget.cpp
+)
+
+# Create executable with all sources
+add_executable(webapp ${SOURCES})
 
 # Link libraries
 target_link_libraries(webapp ${PostgreSQL_LIBRARIES})

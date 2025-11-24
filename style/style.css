@@ -1,24 +1,4 @@
-:root {
-
-    --white: #FFFFFF;
-    --black: #000000;
-    /* Light & Airy */
-    --sky-blue: #87CEEB;
-    --powder-blue: #B0E0E6;
-    --light-cyan: #E0FFFF;
-    
-    /* Medium Blues */
-    --cornflower: #6495ED;
-    --soft-blue: #6A9FB5;
-    --cadet-blue: #5F9EA0;
-    
-    /* Deep Blues */
-    --steel-blue: #4682B4;
-    --air-force: #5D8AA8;
-    --flowbit-blue: #0B538D
-
-
-}
+/* Main container styles */
 
 body {
     margin: 0;
@@ -26,113 +6,111 @@ body {
     
 }
 .main-container {
-    /* border: 2px solid black; */
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: lightgray;
-    margin-top: 0px;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.center-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-container {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.logo-image {
+    width: 200px;
+    height: auto;
 }
 
 .form-container {
-    width: 400px;
-    height: 500px;
-    /* border: 2px solid black; */
-    padding: 20px;
-
-    /* margin-top: 13px;  */
-    /* margin-bottom: 13px; */
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* height: 50vh; */
-    background: var(--white);
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 400px;
 }
 
-.login-button{
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: var(--flowbit-blue);
+/* Input field styles */
+.input-field {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #007acc;
+    box-shadow: 0 0 5px rgba(0,122,204,0.3);
+}
+
+/* Button styles */
+.login-button {
+    background-color: #007acc;
+    color: white;
+    padding: 12px 24px;
     border: none;
-    border-radius: 3px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    font-size: 20px;
-    font-style: normal;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.login-button:hover {
+    background-color: #005a9e;
+}
+
+/* Database status styles */
+.db-connected {
+    color: #28a745;
     font-weight: bold;
-    text-align: center;
-    margin-top: 21px;
-    margin-bottom: 54px;
-    margin-bottom: 2px;
-    color: var(--white);
-    cursor: pointer;}
+}
 
-    .login-button:hover {
-        color: var(--white);
-    }
-
-    .input-container{
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding-bottom: 50px;
-        
-        align-items: center;
-        justify-content: center;
-        /* height: 50vh; */
-        background: var(--white);
-        /* border-radius: 20px; */
-        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-    }
-
-   .logo-image {
-    width: 200px;
-    height: 200px;
-   }
-
-
-    .error-message {
-    color: red;
+.db-disconnected {
+    color: #dc3545;
     font-weight: bold;
-    margin-top: 10px;
+}
+
+/* Error message styles */
+.error_container {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
 }
 
 .success-message {
-    color: green;
-    font-weight: bold;
-    margin-top: 10px;
+    color: #155724;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
 }
 
- .error_container {
-    /* border: 2px solid red; */
-    margin-top: 10px;
-    margin-bottom: 10px;
-    min-height: 54px;
-    display: flex; /* Added this crucial line */
-    align-items: center;
-    justify-content: center;
-}
-    .footer{
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: #333;
-        color: white;
-        text-align: center;
-        border-bottom: 2px solid var(--flowbit-blue);
-    }
-       
-    .center-container {
-    display: flex;
-    justify-content: center;    /* Horizontal center */
-    align-items: center;        /* Vertical center */
-    min-height: 34px;          /* Give it some height to see vertical centering */
-    border: 1px solid #ccc;     /* Optional: visual reference */
+/* Label styles */
+label {
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 80px;
 }
