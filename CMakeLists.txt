@@ -64,6 +64,7 @@ add_executable(webapp ${SOURCES})
 # Link libraries
 target_link_libraries(webapp ${PostgreSQL_LIBRARIES})
 
+
 if(WIN32)
     target_link_libraries(webapp 
         wt
