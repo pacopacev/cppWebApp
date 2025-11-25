@@ -5,6 +5,7 @@
 
 LoginWidget::LoginWidget() {
 
+
     DatabaseManager dbManager_;
 
     // Create main container
@@ -72,6 +73,10 @@ LoginWidget::LoginWidget() {
     errorMessage_ = error_container->addWidget(std::make_unique<Wt::WText>());
     errorMessage_->setStyleClass("error-message");
     errorMessage_->hide();
+
+    auto version_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+    version_container->setStyleClass("version-container");
+    auto version_text = version_container->addWidget(std::make_unique<Wt::WText>("Version: 1.0.1"));
 }
 
 
