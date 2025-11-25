@@ -31,6 +31,8 @@ private:
     
     void handleLogin();
     void validateCredentials(const std::string& username, const std::string& password);
+
+    
 };
 
 #endif

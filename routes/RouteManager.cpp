@@ -12,6 +12,7 @@ RouteManager::RouteManager(Wt::WApplication* app)
 }
 
 void RouteManager::setupRoutes() {
+    std::cout << "Setting up routes" << std::endl;
     // Connect to internal path changes using lambda
     app_->internalPathChanged().connect([this] {
         handleRoute(app_->internalPath());

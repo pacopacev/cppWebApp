@@ -18,7 +18,7 @@ public:
     
     bool connect();
     bool isConnected() const;
-    bool validateUser(const std::string& username, const std::string& password);
+    bool validateUser(const std::string& username, const std::string& password, int& userId);
     bool createUser(const std::string& username, const std::string& password, const std::string& email);
     
 private:

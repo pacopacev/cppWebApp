@@ -55,8 +55,9 @@ LoginWidget::LoginWidget() {
     passwordEdit_ = passLayout->addWidget(std::make_unique<Wt::WPasswordEdit>());
     passwordEdit_->setPlaceholderText("Enter your password");
     passwordEdit_->setStyleClass("input-field");
+    passwordEdit_->setReadOnly(false);
+    passwordEdit_->setNativeControl(true);
     passwordLabel->setBuddy(passwordEdit_);
-
     passLayout->setStretchFactor(passwordEdit_, 1);
 
     // Button row
@@ -102,14 +103,14 @@ void LoginWidget::validateCredentials(const std::string& username, const std::st
     }
     
     
-    std::cout << username << " " << password << std::endl;
-
+    // std::cout << username << " " << password << std::endl;
+int userId;
     // Simple validation - replace with your database logic
-   if (dbManager_.validateUser(username, password)) {
-
+   if (dbManager_.validateUser(username, password, userId)) {
+std::cout << "User validated! ID: " << userId << std::endl;
     errorMessage_->setText("Successfully logged in");
     errorMessage_->show();
-    loginSuccess_.emit("Login successful");
+    loginSuccess_.emit("Login successful for user1: " + std::to_string(userId));
 
 
             // Redirect or load main application

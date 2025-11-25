@@ -34,7 +34,7 @@ bool DatabaseManager::isConnected() const {
     return connection_ && PQstatus(connection_) == CONNECTION_OK;
 }
 
-bool DatabaseManager::validateUser(const std::string& username, const std::string& password) {
+bool DatabaseManager::validateUser(const std::string& username, const std::string& password, int& userId) {
     if (!isConnected()) {
         std::cerr << "Database not connected" << std::endl;
         return false;
@@ -59,11 +59,36 @@ bool DatabaseManager::validateUser(const std::string& username, const std::strin
         PQclear(res);
         return false;
     }
-    
+    /////
+    // 2. Check how many rows were returned
+    int rowCount = PQntuples(res);
+    printf("Number of rows returned: %d\n", rowCount);
+
+if (rowCount > 0) {
+    // 3. Process the results
+    for (int i = 0; i < rowCount; i++) {
+        // Get the id value from the first column (column index 0)
+        char* id_str = PQgetvalue(res, i, 0);
+        printf("User ID: %s\n", id_str);
+        userId = std::stoi(id_str);
+        
+        // You can also get other columns if you selected more
+        // char* firstName = PQgetvalue(res, i, 1); // if you had first_name in SELECT
+    }
+} else {
+    printf("No users found with the given credentials.\n");
+}
+   
+
+    ///////
     bool userExists = (PQntuples(res) > 0);
     PQclear(res);
     
-    return userExists;
+    if (!userExists) {
+        return false;
+    }
+   
+    return true;
 }
 
 bool DatabaseManager::createUser(const std::string& username, const std::string& password, const std::string& email) {
