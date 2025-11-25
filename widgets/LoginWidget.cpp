@@ -2,6 +2,7 @@
 #include <iostream>
 #include "DatabaseManager.h"
 #include "Wt/WLabel.h"
+#include "Utils.h"
 
 LoginWidget::LoginWidget() {
 
@@ -76,7 +77,9 @@ LoginWidget::LoginWidget() {
 
     auto version_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
     version_container->setStyleClass("version-container");
-    auto version_text = version_container->addWidget(std::make_unique<Wt::WText>("Version: 1.0.1"));
+    std::string versionText = Utils::getVersion();
+    // std::cout << versionText << std::endl;
+    auto version_text = version_container->addWidget(std::make_unique<Wt::WText>("Version: " + versionText));
 }
 
 

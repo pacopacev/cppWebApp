@@ -34,7 +34,7 @@ std::string Utils::formatDate(const std::string& format) {
 }
 
 std::string Utils::getVersion() {
-    return "1.0.0";
+    return "1.0.2";
 }
 
 bool Utils::isValidEmail(const std::string& email) {
