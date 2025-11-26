@@ -1,22 +1,24 @@
-#ifndef DASHBOARD_WIDGET_H
-#define DASHBOARD_WIDGET_H
-
+#pragma once
 #include <Wt/WContainerWidget.h>
-#include <Wt/WText.h>
-#include <Wt/WPushButton.h>
 #include <Wt/WSignal.h>
-#include <Wt/WVBoxLayout.h>
 
 class DashboardWidget : public Wt::WContainerWidget {
 public:
-    DashboardWidget(const std::string& username);
+    DashboardWidget(const std::string& username = "");
     
     Wt::Signal<>& logoutRequested() { return logoutRequested_; }
+    Wt::Signal<std::string>& menuItemSelected() { return menuItemSelected_; }
+
+    // Add this method to set section from routes
+    void setActiveSection(const std::string& section);
 
 private:
-    Wt::Signal<> logoutRequested_;
-    
+    void setupSidebarTree(Wt::WContainerWidget* treeContainer);
+    void showContent(const std::string& content);
     void handleLogout();
-};
 
-#endif
+    Wt::WContainerWidget* contentArea_;
+    
+    Wt::Signal<> logoutRequested_;
+    Wt::Signal<std::string> menuItemSelected_;
+};

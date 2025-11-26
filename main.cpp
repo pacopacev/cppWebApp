@@ -1,14 +1,13 @@
 #include <Wt/WApplication.h>
 #include <Wt/WEnvironment.h>
-#include <Wt/WContainerWidget.h>
 #include "routes/RouteManager.h"
-#include "widgets/LoginWidget.h"
-#include "widgets/DashboardWidget.h"
+#include "DatabaseManager.h"
 #include <iostream>
 
 class FlowbitApplication : public Wt::WApplication {
 private:
     RouteManager* routeManager_;
+    DatabaseManager dbManager_;  // DatabaseManager instance
     std::string loggedUser_;
 
 public:
@@ -21,12 +20,16 @@ public:
         useStyleSheet("/style/style.css");
         setTitle("Flowbit");
         
-        // Initialize route manager
-        routeManager_ = new RouteManager(this);
+        // Initialize route manager with dbManager
+        routeManager_ = new RouteManager(this, dbManager_);
         
         // Register application state callbacks
-        routeManager_->setAuthCheckCallback([this]() { return !loggedUser_.empty(); });
-        routeManager_->setUserGetterCallback([this]() { return loggedUser_; });
+        routeManager_->setAuthCheckCallback([this]() { 
+            return !loggedUser_.empty(); 
+        });
+        routeManager_->setUserGetterCallback([this]() { 
+            return loggedUser_; 
+        });
         routeManager_->setUserSetterCallback([this](const std::string& user) { 
             loggedUser_ = user; 
         });

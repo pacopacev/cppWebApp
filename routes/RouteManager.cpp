@@ -3,16 +3,14 @@
 #include "../widgets/DashboardWidget.h"
 #include <iostream>
 
-RouteManager::RouteManager(Wt::WApplication* app) 
-    : app_(app) {
+RouteManager::RouteManager(Wt::WApplication* app, DatabaseManager& dbManager) 
+    : app_(app), dbManager_(dbManager) {
     
-    // Create main content area
     contentArea_ = app_->root()->addWidget(std::make_unique<Wt::WContainerWidget>());
     contentArea_->setStyleClass("content-area");
 }
 
 void RouteManager::setupRoutes() {
-    std::cout << "Setting up routes" << std::endl;
     // Connect to internal path changes using lambda
     app_->internalPathChanged().connect([this] {
         handleRoute(app_->internalPath());
@@ -43,13 +41,21 @@ void RouteManager::handleRoute(const std::string& path) {
     
     contentArea_->clear();
     
-    if (path == "/dashboard") {
+    // Check for dashboard routes
+    if (path == "/dashboard" || 
+        path == "/dashboard/users" ||
+        path == "/dashboard/users/add" ||
+        path == "/dashboard/settings/profile" ||
+        path == "/dashboard/settings/security" ||
+        path == "/dashboard/reports/daily" ||
+        path == "/dashboard/reports/monthly") {
+        
         if (!isAuthenticated()) {
             std::cout << "Not authenticated, redirecting to login" << std::endl;
             navigateTo("/login");
             showLogin();
         } else {
-            showDashboard();
+            showDashboard(path);
         }
     } else if (path == "/login") {
         showLogin();
@@ -63,7 +69,9 @@ void RouteManager::handleRoute(const std::string& path) {
 void RouteManager::showLogin() {
     std::cout << "Showing login page" << std::endl;
     
-    auto loginWidget = contentArea_->addWidget(std::make_unique<LoginWidget>());
+    // ✅ CORRECT: Use direct construction
+    auto loginWidget = new LoginWidget(dbManager_);
+    contentArea_->addWidget(std::unique_ptr<LoginWidget>(loginWidget));
     
     // Connect login success signal using lambda
     loginWidget->loginSuccess().connect([this](const std::string& username) {
@@ -79,8 +87,8 @@ void RouteManager::showLogin() {
     });
 }
 
-void RouteManager::showDashboard() {
-    std::cout << "Showing dashboard for user: " << getLoggedUser() << std::endl;
+void RouteManager::showDashboard(const std::string& path) {
+    std::cout << "Showing dashboard for user: " << getLoggedUser() << " at path: " << path << std::endl;
     
     auto dashboardWidget = contentArea_->addWidget(std::make_unique<DashboardWidget>(getLoggedUser()));
     
@@ -90,6 +98,46 @@ void RouteManager::showDashboard() {
         setLoggedUser("");
         navigateTo("/login");
     });
+    
+    // Connect menu selection signal to handle navigation
+    dashboardWidget->menuItemSelected().connect([this](const std::string& section) {
+        handleDashboardMenu(section);
+    });
+    
+    // Set the initial content based on the path
+    std::string section = getSectionFromPath(path);
+    dashboardWidget->setActiveSection(section);
+}
+
+void RouteManager::handleDashboardMenu(const std::string& section) {
+    std::cout << "Dashboard menu selected: " << section << std::endl;
+    
+    // Map section names to routes
+    std::map<std::string, std::string> routeMap = {
+        {"dashboard", "/dashboard"},
+        {"users_list", "/dashboard/users"},
+        {"users_add", "/dashboard/users/add"},
+        {"profile", "/dashboard/settings/profile"},
+        {"security", "/dashboard/settings/security"},
+        {"report_daily", "/dashboard/reports/daily"},
+        {"report_monthly", "/dashboard/reports/monthly"}
+    };
+    
+    auto it = routeMap.find(section);
+    if (it != routeMap.end()) {
+        navigateTo(it->second);
+    }
+}
+
+std::string RouteManager::getSectionFromPath(const std::string& path) {
+    if (path == "/dashboard") return "dashboard";
+    if (path == "/dashboard/users") return "users_list";
+    if (path == "/dashboard/users/add") return "users_add";
+    if (path == "/dashboard/settings/profile") return "profile";
+    if (path == "/dashboard/settings/security") return "security";
+    if (path == "/dashboard/reports/daily") return "report_daily";
+    if (path == "/dashboard/reports/monthly") return "report_monthly";
+    return "dashboard"; // default
 }
 
 void RouteManager::showNotFound() {

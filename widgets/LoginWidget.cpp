@@ -4,10 +4,8 @@
 #include "Wt/WLabel.h"
 #include "Utils.h"
 
-LoginWidget::LoginWidget() {
-
-
-    DatabaseManager dbManager_;
+LoginWidget::LoginWidget(DatabaseManager& dbManager) 
+    : dbManager_(dbManager) {
 
     // Create main container
     auto* main_container = this->addWidget(std::make_unique<Wt::WContainerWidget>());
@@ -29,6 +27,8 @@ LoginWidget::LoginWidget() {
     // Database status row
     auto db_status_content = center_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
     db_status_content->addWidget(std::make_unique<Wt::WText>("DATABASE STATUS: "));
+    
+
     
     std::string statusText = dbManager_.connect() ? "🟢 Connected" : "🔴 Disconnected";
     // std::cout << statusText << std::endl;
@@ -106,7 +106,7 @@ void LoginWidget::validateCredentials(const std::string& username, const std::st
 
     DatabaseManager dbManager_;
     if (!dbManager_.connect()) {
-        std::cerr << "Failed to connect to the database." << std::endl;
+        std::cout << "Failed to connect to the database." << std::endl;
         return;
     }
     
