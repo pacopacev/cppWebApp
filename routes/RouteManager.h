@@ -36,6 +36,11 @@ private:
     bool isAuthenticated();
     std::string getLoggedUser();
     void setLoggedUser(const std::string& user);
+    std::string loggedUser_;
+    int loggedUserId_ = -1; // Add user ID storage
+    
+    void setLoggedUserId(int userId) { loggedUserId_ = userId; }
+    int getLoggedUserId() const { return loggedUserId_; }
 
     Wt::WApplication* app_;
     DatabaseManager& dbManager_;

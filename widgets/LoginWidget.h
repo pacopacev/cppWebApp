@@ -14,11 +14,11 @@
 class LoginWidget : public Wt::WContainerWidget {
 public:
     // Make sure this constructor is properly declared
-    explicit LoginWidget(DatabaseManager& dbManager);
+    LoginWidget(DatabaseManager& dbManager);
     
     // Signals
-    Wt::Signal<const std::string&>& loginSuccess() { return loginSuccess_; }
-    Wt::Signal<const std::string&>& loginFailed() { return loginFailed_; }
+    Wt::Signal<std::string, int>& loginSuccess() { return loginSuccess_; }
+    Wt::Signal<std::string>& loginFailed() { return loginFailed_; }
 
 private:
     DatabaseManager& dbManager_;
@@ -27,8 +27,8 @@ private:
     Wt::WText* errorMessage_;
     // Wt::WText* statusText_;
     
-    Wt::Signal<const std::string&> loginSuccess_;
-    Wt::Signal<const std::string&> loginFailed_;
+    Wt::Signal<std::string, int> loginSuccess_;  // Changed to two parameters
+    Wt::Signal<std::string> loginFailed_;
     
     void handleLogin();
     void validateCredentials(const std::string& username, const std::string& password);

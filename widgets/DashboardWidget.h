@@ -4,7 +4,7 @@
 
 class DashboardWidget : public Wt::WContainerWidget {
 public:
-    DashboardWidget(const std::string& username = "");
+    DashboardWidget(const std::string& username, int userId);
     
     Wt::Signal<>& logoutRequested() { return logoutRequested_; }
     Wt::Signal<std::string>& menuItemSelected() { return menuItemSelected_; }
@@ -21,4 +21,7 @@ private:
     
     Wt::Signal<> logoutRequested_;
     Wt::Signal<std::string> menuItemSelected_;
+
+    int userId_;
+    std::string username_;
 };

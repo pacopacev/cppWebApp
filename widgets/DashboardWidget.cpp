@@ -6,7 +6,7 @@
 #include <Wt/WCssDecorationStyle.h>
 #include <iostream>
 
-DashboardWidget::DashboardWidget(const std::string& username) {
+DashboardWidget::DashboardWidget(const std::string& username, int userId) {
     setStyleClass("dashboard-container");
     
     // Create main layout
@@ -49,8 +49,11 @@ DashboardWidget::DashboardWidget(const std::string& username) {
     mainContentLayout->setContentsMargins(20, 20, 20, 20);
     
     // Welcome header
-    auto welcomeHeader = mainContentLayout->addWidget(std::make_unique<Wt::WText>("Welcome to Dashboard"));
+    auto welcomeHeader = mainContentLayout->addWidget(std::make_unique<Wt::WText>(
+        "Welcome to Dashboard, " + username + "! (ID: " + std::to_string(userId) + ")"
+    ));
     welcomeHeader->setStyleClass("content-header");
+    // welcomeHeader->setText("<h1>Welcome to Dashboard Plambe</h1>");
     
     // Content area
     contentArea_ = mainContentLayout->addWidget(std::make_unique<Wt::WContainerWidget>());

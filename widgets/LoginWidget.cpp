@@ -65,7 +65,7 @@ LoginWidget::LoginWidget(DatabaseManager& dbManager)
     // Button row
     auto* buttonLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
     auto loginButton = buttonLayout->addWidget(std::make_unique<Wt::WPushButton>("Login"));
-    loginButton->setStyleClass("login-button");
+    loginButton->setStyleClass("stat-card");
     loginButton->clicked().connect(this, &LoginWidget::handleLogin);
 
     // Error container
@@ -112,13 +112,14 @@ void LoginWidget::validateCredentials(const std::string& username, const std::st
     
     
     // std::cout << username << " " << password << std::endl;
-int userId;
+    int userId = -1;
     // Simple validation - replace with your database logic
    if (dbManager_.validateUser(username, password, userId)) {
-std::cout << "User validated! ID: " << userId << std::endl;
-    errorMessage_->setText("Successfully logged in");
-    errorMessage_->show();
-    loginSuccess_.emit("Login successful for user1: " + std::to_string(userId));
+        std::cout << "User validated! Username: " << username << ", ID: " << userId << std::endl;
+        errorMessage_->setText("Successfully logged in");
+        errorMessage_->show();
+        // Send a signal to the application that the user has been logged in successfully with their user ID
+        loginSuccess_.emit(username, userId);
 
 
             // Redirect or load main application

@@ -17,7 +17,7 @@ public:
         std::cout << "FlowbitApplication created" << std::endl;
         
         // Setup application
-        useStyleSheet("/style/style.css");
+        useStyleSheet("css/custom.css");
         setTitle("Flowbit");
         
         // Initialize route manager with dbManager

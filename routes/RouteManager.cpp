@@ -74,9 +74,10 @@ void RouteManager::showLogin() {
     contentArea_->addWidget(std::unique_ptr<LoginWidget>(loginWidget));
     
     // Connect login success signal using lambda
-    loginWidget->loginSuccess().connect([this](const std::string& username) {
-        std::cout << "Login successful for user: " << username << std::endl;
+    loginWidget->loginSuccess().connect([this](const std::string& username, int userId) {
+        std::cout << "Login successful for user: " << username << " with ID: " << userId << std::endl;
         setLoggedUser(username);
+        setLoggedUserId(userId);
         navigateTo("/dashboard");
     });
     
@@ -88,18 +89,24 @@ void RouteManager::showLogin() {
 }
 
 void RouteManager::showDashboard(const std::string& path) {
-    std::cout << "Showing dashboard for user: " << getLoggedUser() << " at path: " << path << std::endl;
+    std::string username = getLoggedUser();
+    int userId = getLoggedUserId(); // Make sure this method exists
     
-    auto dashboardWidget = contentArea_->addWidget(std::make_unique<DashboardWidget>(getLoggedUser()));
+    std::cout << "Showing dashboard for user: " << username << " (ID: " << userId << ") at path: " << path << std::endl;
     
-    // Connect logout signal using lambda
+    // Create DashboardWidget with both username and user ID
+    auto dashboardWidget = new DashboardWidget(username, userId);
+    contentArea_->addWidget(std::unique_ptr<DashboardWidget>(dashboardWidget));
+    
+    // Connect logout signal
     dashboardWidget->logoutRequested().connect([this]() {
         std::cout << "Logout requested" << std::endl;
         setLoggedUser("");
+        setLoggedUserId(-1);
         navigateTo("/login");
     });
     
-    // Connect menu selection signal to handle navigation
+    // Connect menu selection signal
     dashboardWidget->menuItemSelected().connect([this](const std::string& section) {
         handleDashboardMenu(section);
     });
@@ -108,7 +115,6 @@ void RouteManager::showDashboard(const std::string& path) {
     std::string section = getSectionFromPath(path);
     dashboardWidget->setActiveSection(section);
 }
-
 void RouteManager::handleDashboardMenu(const std::string& section) {
     std::cout << "Dashboard menu selected: " << section << std::endl;
     
