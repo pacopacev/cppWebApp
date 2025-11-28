@@ -56,6 +56,7 @@ set(SOURCES
     routes/RouteManager.cpp
     widgets/DashboardWidget.cpp
     widgets/LoginWidget.cpp
+    widgets/dash.cpp
 )
 
 # Create executable with all sources

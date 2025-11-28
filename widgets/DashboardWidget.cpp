@@ -5,6 +5,7 @@
 #include <Wt/WText.h>
 #include <Wt/WCssDecorationStyle.h>
 #include <iostream>
+#include "dash.h"
 
 DashboardWidget::DashboardWidget(const std::string& username, int userId) {
     setStyleClass("dashboard-container");
@@ -53,8 +54,7 @@ DashboardWidget::DashboardWidget(const std::string& username, int userId) {
         "Welcome to Dashboard, " + username + "! (ID: " + std::to_string(userId) + ")"
     ));
     welcomeHeader->setStyleClass("content-header");
-    // welcomeHeader->setText("<h1>Welcome to Dashboard Plambe</h1>");
-    
+
     // Content area
     contentArea_ = mainContentLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
     contentArea_->setStyleClass("content-area");
@@ -187,31 +187,12 @@ listUsers->clicked().connect([this]() {
 
 void DashboardWidget::showContent(const std::string& content) {
     contentArea_->clear();
-    
-    if (content == "dashboard") {
-        auto container = contentArea_->addWidget(std::make_unique<Wt::WContainerWidget>());
-        container->setStyleClass("dashboard-content");
-        
-        auto title = container->addWidget(std::make_unique<Wt::WText>("<h2>📊 Dashboard Overview</h2>"));
-        title->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        
-        auto description = container->addWidget(std::make_unique<Wt::WText>(
-            "<p>Welcome to your main dashboard. Here you can see an overview of your system.</p>"
-        ));
-        description->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        
-        auto statsContainer = container->addWidget(std::make_unique<Wt::WContainerWidget>());
-        statsContainer->setStyleClass("dashboard-stats");
-        
-        auto stats1 = statsContainer->addWidget(std::make_unique<Wt::WText>("<div class='stat-card'>Users: 150</div>"));
-        stats1->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        
-        auto stats2 = statsContainer->addWidget(std::make_unique<Wt::WText>("<div class='stat-card'>Active: 45</div>"));
-        stats2->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        
-        auto stats3 = statsContainer->addWidget(std::make_unique<Wt::WText>("<div class='stat-card'>Reports: 12</div>"));
-        stats3->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        
+     if (content == "dashboard") {
+        dash myDash;
+
+// Call the showdash function on that instance
+        myDash.showdash(contentArea_);
+
     } else if (content == "users_list") {
         auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
         contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);

@@ -254,7 +254,7 @@ label {
 
 /* Main Content */
 .main-content {
-    flex: 1;
+    /* flex: 1; */
     background: white;
     overflow-y: auto;
     display: flex;
@@ -262,11 +262,14 @@ label {
 }
 
 .content-header {
-    font-size: 28px;
+    font-size: 21px;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
     padding: 0;
+    flex: 0;
+    
+    
 }
 
 .content-area {
@@ -274,7 +277,7 @@ label {
     border-radius: 8px;
     /* padding: 30px; */
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    flex: 1;
+    flex: 2;
     /* margin: 20px; */
 }
 
