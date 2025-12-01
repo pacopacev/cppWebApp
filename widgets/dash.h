@@ -1,6 +1,5 @@
 
 #pragma once
-
 #include <Wt/WContainerWidget.h>
 
 class dash {

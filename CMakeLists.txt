@@ -57,6 +57,9 @@ set(SOURCES
     widgets/DashboardWidget.cpp
     widgets/LoginWidget.cpp
     widgets/dash.cpp
+    widgets/UsersList.cpp
+    widgets/UsersAdd.cpp
+    widgets/SecuritySettings.cpp
 )
 
 # Create executable with all sources

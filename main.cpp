@@ -13,11 +13,12 @@ private:
 public:
     FlowbitApplication(const Wt::WEnvironment& env)
         : Wt::WApplication(env) {
+            useStyleSheet("/css/styles.css");
         
         std::cout << "FlowbitApplication created" << std::endl;
         
         // Setup application
-        useStyleSheet("css/custom.css");
+
         setTitle("Flowbit");
         
         // Initialize route manager with dbManager

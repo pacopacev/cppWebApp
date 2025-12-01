@@ -6,6 +6,9 @@
 #include <Wt/WCssDecorationStyle.h>
 #include <iostream>
 #include "dash.h"
+#include "UsersList.h"
+#include "UsersAdd.h"
+#include "SecuritySettings.h"
 
 DashboardWidget::DashboardWidget(const std::string& username, int userId) {
     setStyleClass("dashboard-container");
@@ -189,31 +192,15 @@ void DashboardWidget::showContent(const std::string& content) {
     contentArea_->clear();
      if (content == "dashboard") {
         dash myDash;
-
-// Call the showdash function on that instance
         myDash.showdash(contentArea_);
 
     } else if (content == "users_list") {
-        auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
-        contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        contentText->setText("<h2>👥 User List</h2>"
-                           "<p>List of all users in the system:</p>"
-                           "<ul>"
-                           "<li>John Doe (admin)</li>"
-                           "<li>Jane Smith (user)</li>"
-                           "<li>Bob Johnson (moderator)</li>"
-                           "</ul>");
+        UserList userListWidget;
+        userListWidget.showUserList(contentArea_);
+
     } else if (content == "users_add") {
-        auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
-        contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        contentText->setText("<h2>➕ Add User</h2>"
-                           "<p>Add a new user to the system:</p>"
-                           "<div class='form-container'>"
-                           "<input type='text' placeholder='Username' class='input-field'>"
-                           "<input type='email' placeholder='Email' class='input-field'>"
-                           "<input type='password' placeholder='Password' class='input-field'>"
-                           "<button class='btn btn-primary'>Add User</button>"
-                           "</div>");
+        usersAdd usersAddWidget;
+        usersAddWidget.showUsersAdd(contentArea_);
     } else if (content == "profile") {
         auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
         contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);
@@ -226,16 +213,8 @@ void DashboardWidget::showContent(const std::string& content) {
                            "<button class='btn btn-primary'>Update Profile</button>"
                            "</div>");
     } else if (content == "security") {
-        auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
-        contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);
-        contentText->setText("<h2>🔒 Security Settings</h2>"
-                           "<p>Manage your security preferences:</p>"
-                           "<div class='form-container'>"
-                           "<input type='password' placeholder='Current Password' class='input-field'>"
-                           "<input type='password' placeholder='New Password' class='input-field'>"
-                           "<input type='password' placeholder='Confirm New Password' class='input-field'>"
-                           "<button class='btn btn-primary'>Change Password</button>"
-                           "</div>");
+        SecuritySettings securitySettingsWidget;
+        securitySettingsWidget.showSecuritySettings(contentArea_);
     } else if (content == "report_daily") {
         auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
         contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);
