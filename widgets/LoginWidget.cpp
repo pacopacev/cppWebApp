@@ -33,6 +33,7 @@ LoginWidget::LoginWidget(DatabaseManager& dbManager)
     std::string statusText = dbManager_.connect() ? "🟢 Connected" : "🔴 Disconnected";
     // std::cout << statusText << std::endl;
     auto statusIndicator = db_status_content->addWidget(std::make_unique<Wt::WText>(statusText));
+    
     statusIndicator->setStyleClass(dbManager_.isConnected() ? "db-connected" : "db-disconnected");
 
     // Logo
@@ -42,25 +43,30 @@ LoginWidget::LoginWidget(DatabaseManager& dbManager)
     logo->setStyleClass("logo-image");
 
     // Username row
-    auto userLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
-    auto usernameLabel = userLayout->addWidget(std::make_unique<Wt::WLabel>("Username:"));
-    usernameEdit_ = userLayout->addWidget(std::make_unique<Wt::WLineEdit>());
+    // auto userLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
+    auto usernameContainer = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+    auto usernameLabel = usernameContainer->addWidget(std::make_unique<Wt::WLabel>("Username:"));
+    usernameContainer->setStyleClass("username-container");
+    usernameEdit_ = usernameContainer->addWidget(std::make_unique<Wt::WLineEdit>());
     usernameEdit_->setPlaceholderText("Enter your username");
     usernameEdit_->setStyleClass("input-field");
     usernameLabel->setBuddy(usernameEdit_);
 
-    userLayout->setStretchFactor(usernameEdit_, 1);
+    // userLayout->setStretchFactor(usernameEdit_, 1);
 
     // Password row
-    auto* passLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
-    auto passwordLabel = passLayout->addWidget(std::make_unique<Wt::WLabel>("Password:"));
-    passwordEdit_ = passLayout->addWidget(std::make_unique<Wt::WPasswordEdit>());
+    // auto* passLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
+    auto passWordContainer = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+    passWordContainer->setStyleClass("password-container");
+    // auto* passLayout = passWordContainer->setLayout(std::make_unique<Wt::WHBoxLayout>());
+    auto passwordLabel = passWordContainer->addWidget(std::make_unique<Wt::WLabel>("Password:"));
+    passwordEdit_ = passWordContainer->addWidget(std::make_unique<Wt::WPasswordEdit>());
     passwordEdit_->setPlaceholderText("Enter your password");
     passwordEdit_->setStyleClass("input-field");
     passwordEdit_->setReadOnly(false);
     passwordEdit_->setNativeControl(true);
     passwordLabel->setBuddy(passwordEdit_);
-    passLayout->setStretchFactor(passwordEdit_, 1);
+    // passLayout->setStretchFactor(passwordEdit_, 1);
 
     // Button row
     auto* buttonLayout = formLayout->addLayout(std::make_unique<Wt::WHBoxLayout>());
