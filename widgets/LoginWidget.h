@@ -1,6 +1,6 @@
 #ifndef LOGIN_WIDGET_H
 #define LOGIN_WIDGET_H
-
+#pragma once
 #include <Wt/WContainerWidget.h>
 #include <Wt/WLineEdit.h>
 #include <Wt/WPasswordEdit.h>

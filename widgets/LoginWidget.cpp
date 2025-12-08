@@ -33,7 +33,6 @@ LoginWidget::LoginWidget(DatabaseManager& dbManager)
     auto db_status_content = center_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
     db_status_content->addWidget(std::make_unique<Wt::WText>("DATABASE STATUS: "));
     
-
     
     std::string statusText = dbManager_.connect() ? "🟢 Connected" : "🔴 Disconnected";
     // std::cout << statusText << std::endl;
