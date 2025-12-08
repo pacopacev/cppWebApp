@@ -36,31 +36,19 @@ body {
 
 .form-container {
     background: white;
-    padding: 30px;
+    padding: 0px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    /* width: 50%;   */
+    /* width: 34%; */
     display: flex;
+    width: 400px;
     justify-content: center; /* horizontal centering */
     align-items: center; /* vertical centering */
     flex-direction: column; /* stack items vertically if needed */
 }
 
-/* Input field styles */
-.input-field {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    /* width: 100%; */
-    box-sizing: border-box; /* Include padding in width calculation */
-}
 
-.input-field:focus {
-    outline: none;
-    border-color: #007acc;
-    box-shadow: 0 0 5px rgba(0,122,204,0.3);
-}
+
 
 
 .username-container {
@@ -346,8 +334,8 @@ label {
 
 
 .input-field {
-    width: 100%;
-    padding: 12px 15px;
+    width: 200px;
+    padding: 8px 13px;
     margin: 8px 0;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -356,10 +344,20 @@ label {
     box-sizing: border-box;
 }
 
+
+
 .input-field:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+
+.devider-container {
+    height: 1px;
+    width: 100%;
+    margin: 20px 0;
+    border-bottom: solid 1px #667eea;
 }
 
 /* Content styling */

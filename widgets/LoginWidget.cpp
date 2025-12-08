@@ -20,9 +20,14 @@ LoginWidget::LoginWidget(DatabaseManager& dbManager)
     form_container->setStyleClass("form-container");
     auto formLayout = form_container->setLayout(std::make_unique<Wt::WVBoxLayout>());
 
+    
+
      // Create center container inside main container
     auto* center_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
     center_container->setStyleClass("center-container");
+
+    auto devider_container = formLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+    devider_container->setStyleClass("devider-container");
 
     // Database status row
     auto db_status_content = center_container->setLayout(std::make_unique<Wt::WHBoxLayout>());
