@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /var/www/cppWebApp
-port=8085
+port=8083
 
 echo "🛑 Stopping any running instance..."
 pkill -f "webapp --docroot" || true

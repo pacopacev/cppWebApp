@@ -53,9 +53,12 @@ DashboardWidget::DashboardWidget(const std::string& username, int userId) {
     mainContentLayout->setContentsMargins(20, 20, 20, 20);
     
     // Welcome header
-    auto welcomeHeader = mainContentLayout->addWidget(std::make_unique<Wt::WText>(
+
+    auto wlcomeHeaderContainer = mainContentLayout->addWidget(std::make_unique<Wt::WContainerWidget>());
+    auto welcomeHeader = wlcomeHeaderContainer->addWidget(std::make_unique<Wt::WText>(
         "Welcome to Dashboard, " + username + "! (ID: " + std::to_string(userId) + ")"
     ));
+    wlcomeHeaderContainer->setStyleClass("welcome-header-container");
     welcomeHeader->setStyleClass("content-header");
 
     // Content area
