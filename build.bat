@@ -1,14 +1,25 @@
 @echo off
 echo === Wt C++ Web Application Build ===
 
-set "CMAKE=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
-set "VCPKG_TOOLCHAIN=D:\vcpkg\scripts\buildsystems\vcpkg.cmake"
+set "CMAKE=C:\Program Files\CMake\bin\cmake.exe"
+set "VCPKG_TOOLCHAIN=H:\vcpkg\scripts\buildsystems\vcpkg.cmake"
 
 echo Cleaning previous build...
 if exist build rmdir /s /q build
 
 echo Configuring CMake...
-"%CMAKE%" -B build -S . -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN% -G "Visual Studio 17 2022" -A x64
+"%CMAKE%" -B build -S . -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%
+
+if %errorlevel% neq 0 (
+    echo CMake configuration failed!
+    echo Trying with x64 architecture...
+    "%CMAKE%" -B build -S . -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN% -A x64
+)
+
+if %errorlevel% neq 0 (
+    echo Trying VS 2022 generator...
+    "%CMAKE%" -B build -S . -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN% -G "Visual Studio 17 2022" -A x64
+)
 
 if %errorlevel% neq 0 (
     echo CMake configuration failed!

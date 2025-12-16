@@ -6,49 +6,36 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Conditionally set vcpkg toolchain for Windows
 if(WIN32)
-    set(CMAKE_TOOLCHAIN_FILE "D:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(CMAKE_TOOLCHAIN_FILE "H:/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
-# Platform-specific PostgreSQL configuration
+# Set paths
 if(WIN32)
-    find_package(PostgreSQL REQUIRED)
+    set(VCPKG_ROOT "H:/vcpkg")
+    set(VCPKG_TARGET "x64-windows")
+    set(WT_INCLUDE_DIRS "${VCPKG_ROOT}/installed/${VCPKG_TARGET}/include")
+    set(WT_LIBRARY_DIRS "${VCPKG_ROOT}/installed/${VCPKG_TARGET}/lib")
 else()
-    # Manual PostgreSQL configuration for Linux
-    execute_process(
-        COMMAND pg_config --includedir
-        OUTPUT_VARIABLE PG_INCLUDE_DIR
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-    execute_process(
-        COMMAND pg_config --libdir
-        OUTPUT_VARIABLE PG_LIB_DIR
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-    
-    set(PostgreSQL_INCLUDE_DIRS ${PG_INCLUDE_DIR})
-    set(PostgreSQL_LIBRARIES pq)
-    
-    message(STATUS "PostgreSQL include dir: ${PG_INCLUDE_DIR}")
-    message(STATUS "PostgreSQL lib dir: ${PG_LIB_DIR}")
+    # Linux paths - adjust as needed
+    set(WT_INCLUDE_DIRS "/usr/include")
+    set(WT_LIBRARY_DIRS "/usr/lib")
 endif()
 
-# Include directories
-if(WIN32)
-    include_directories("D:/vcpkg/installed/x64-windows/include")
-    link_directories("D:/vcpkg/installed/x64-windows/lib")
-else()
-    include_directories(${PostgreSQL_INCLUDE_DIRS})
-    link_directories(${PG_LIB_DIR})
+# Find PostgreSQL
+find_package(PostgreSQL REQUIRED)
+
+# CRITICAL: Verify Wt headers exist
+if(WIN32 AND EXISTS "${WT_INCLUDE_DIRS}/Wt/WApplication.h")
+    message(STATUS "✓ Wt headers found at: ${WT_INCLUDE_DIRS}/Wt/")
+elseif(WIN32)
+    message(FATAL_ERROR "✗ Wt headers NOT found at: ${WT_INCLUDE_DIRS}/Wt/")
 endif()
 
-# Add subdirectories for better organization
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/routes
-    ${CMAKE_CURRENT_SOURCE_DIR}/widgets
-)
+# Debug output
+message(STATUS "WT_INCLUDE_DIRS: ${WT_INCLUDE_DIRS}")
+message(STATUS "WT_LIBRARY_DIRS: ${WT_LIBRARY_DIRS}")
 
-# List all source files with their correct paths
+# List all source files
 set(SOURCES
     main.cpp
     DatabaseManager.cpp
@@ -62,22 +49,52 @@ set(SOURCES
     widgets/SecuritySettings.cpp
 )
 
-# Create executable with all sources
+# Create executable
 add_executable(webapp ${SOURCES})
 
+# CRITICAL FIX: Use target_include_directories instead of include_directories
+target_include_directories(webapp PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/routes
+    ${CMAKE_CURRENT_SOURCE_DIR}/widgets
+    ${WT_INCLUDE_DIRS}
+    ${PostgreSQL_INCLUDE_DIRS}
+)
+
+# Link directories
+target_link_directories(webapp PRIVATE ${WT_LIBRARY_DIRS})
+
 # Link libraries
-target_link_libraries(webapp ${PostgreSQL_LIBRARIES})
-
-
 if(WIN32)
-    target_link_libraries(webapp 
-        wt
-        wthttp
-        ws2_32
+    target_link_libraries(webapp PRIVATE
+        # Wt libraries
+        wt.lib
+        wthttp.lib
+        
+        # PostgreSQL
+        ${PostgreSQL_LIBRARIES}
+        
+        # Windows system libraries (CRITICAL for resolving linker errors)
+        ws2_32.lib      # Windows Sockets
+        advapi32.lib    # Security/Registry
+        shell32.lib     # Shell API
+        user32.lib      # User Interface
+        gdi32.lib       # Graphics Device Interface
+        
+        # Additional libraries often needed
+        ole32.lib       # OLE
+        oleaut32.lib    # OLE Automation  
+        uuid.lib        # UUID/GUID
     )
 else()
-    target_link_libraries(webapp 
+    target_link_libraries(webapp PRIVATE
         wt
         wthttp
+        ${PostgreSQL_LIBRARIES}
+        pthread
     )
 endif()
+
+# Optional: Add debug info for include paths
+get_target_property(INCLUDES webapp INCLUDE_DIRECTORIES)
+message(STATUS "Final include directories for webapp: ${INCLUDES}")
