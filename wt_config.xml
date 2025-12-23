@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-    <application-settings>
-        <location>*</location>
-        <session-timeout>3600</session-timeout>
-        <max-request-size>131072</max-request-size>
-    </application-settings>
+    <!-- Server settings -->
+    <http-address>0.0.0.0</http-address>
+    <http-port>8080</http-port>
     
-    <connector-fcgi>
-        <run-directory>.</run-directory>
-        <threads>10</threads>
-    </connector-fcgi>
+    <!-- Session settings -->
+    <session-timeout>600</session-timeout>
+    <max-request-size>409600</max-request-size>
+    
+    <!-- Document root and static files -->
+    <docroot>.</docroot>
+    
+    <!-- Logging -->
+    <log-file>wt.log</log-file>
+    <log-config>* -debug -info:Wt</log-config>
+    
+    <!-- Application settings -->
+    <application-settings>
+        <location>
+            <path>/</path>
+            <app-root>webapp</app-root>
+        </location>
+    </application-settings>
 </server>

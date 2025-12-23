@@ -4,6 +4,7 @@
 #include <string>
 #include <chrono>
 #include <ctime>
+#include <vector>  // ADD THIS LINE
 
 class Utils {
 public:
@@ -18,5 +19,7 @@ public:
     static std::string toUpperCase(const std::string& str);
     static std::string generateRandomString(int length);
 };
+
+
 
 #endif // UTILS_H

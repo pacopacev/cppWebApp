@@ -19,10 +19,11 @@ public:
     bool connect();
     bool isConnected() const;
     bool validateUser(const std::string& username, const std::string& password, int& userId);
-    bool createUser(const std::string& username, const std::string& password, const std::string& email);
+    bool createUser(const std::string& username, const std::string& email, const std::string& hashedPassword);
     
 private:
-    PGconn* connection_ = nullptr;  // Initialize to nullptr
+    PGconn* connection_ = nullptr;
+      // Initialize to nullptr
     std::string connection_string_ = "host=pa-pgdimitrov-bfdb.j.aivencloud.com port=25464 dbname=defaultdb user=avnadmin password=AVNS_IONeg4MWBUESkCApRE9";
 };
 

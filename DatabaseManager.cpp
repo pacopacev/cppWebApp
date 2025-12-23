@@ -34,6 +34,8 @@ bool DatabaseManager::isConnected() const {
     return connection_ && PQstatus(connection_) == CONNECTION_OK;
 }
 
+
+
 bool DatabaseManager::validateUser(const std::string& username, const std::string& password, int& userId) {
     if (!isConnected()) {
         std::cerr << "Database not connected" << std::endl;
@@ -91,16 +93,18 @@ if (rowCount > 0) {
     return true;
 }
 
-bool DatabaseManager::createUser(const std::string& username, const std::string& password, const std::string& email) {
+bool DatabaseManager::createUser(const std::string& username, const std::string& email, const std::string& hashedPassword) {
+    std::cout << "Creating user: " << username << " " << hashedPassword << " " << email << std::endl;
     if (!isConnected()) {
         std::cerr << "Database not connected" << std::endl;
         return false;
     }
+    std::cout << "Creating user1: " << username << " " << hashedPassword << " " << email << std::endl;
     
-    const char* paramValues[3] = { username.c_str(), password.c_str(), email.c_str() };
+    const char* paramValues[3] = { username.c_str(), hashedPassword.c_str(), email.c_str() };
     
     PGresult* res = PQexecParams(connection_,
-        "INSERT INTO users (username, password_hash, email) VALUES ($1, crypt($2, gen_salt('bf')), $3)",
+        "INSERT INTO users (first_name, password, email) VALUES ($1, $2, $3)",
         3,       // number of parameters
         NULL,    // parameter types
         paramValues,

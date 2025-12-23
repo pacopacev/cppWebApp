@@ -410,3 +410,19 @@ label {
 .manual-tree .Wt-checkbox {
     display: none !important;
 }
+
+.text-danger {
+    color: #dc3545;
+    margin-top: 10px;
+}
+
+.text-success {
+    color: #28a745;
+    margin-top: 10px;
+}
+
+.status-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+}

@@ -193,17 +193,17 @@ listUsers->clicked().connect([this]() {
 
 void DashboardWidget::showContent(const std::string& content) {
     contentArea_->clear();
-     if (content == "dashboard") {
+    
+    if (content == "dashboard") {
         dash myDash;
         myDash.showdash(contentArea_);
-
     } else if (content == "users_list") {
         UserList userListWidget;
         userListWidget.showUserList(contentArea_);
-
     } else if (content == "users_add") {
-        usersAdd usersAddWidget;
-        usersAddWidget.showUsersAdd(contentArea_);
+        // FIXED: Using contentArea_ instead of contentArea
+        auto usersAddWidget = std::make_unique<UsersAdd>();
+        contentArea_->addWidget(std::move(usersAddWidget));
     } else if (content == "profile") {
         auto contentText = contentArea_->addWidget(std::make_unique<Wt::WText>());
         contentText->setTextFormat(Wt::TextFormat::UnsafeXHTML);

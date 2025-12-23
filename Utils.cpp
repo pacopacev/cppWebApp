@@ -2,6 +2,7 @@
 #include <random>
 #include <algorithm>
 #include <regex>
+#include <vector>  // ADD THIS LINE
 
 std::string Utils::getCurrentDate() {
     auto now = std::chrono::system_clock::now();
